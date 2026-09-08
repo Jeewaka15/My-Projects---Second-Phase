@@ -1,0 +1,279 @@
+{% extends "layout.html" %}
+
+{% block title %}DNS Intelligence - Cyber Dashboard{% endblock %}
+
+{% block content %}
+<!-- Cyber Search Section -->
+<section class="cyber-search-section">
+    <div class="cyber-glitch-text">
+        <h1 class="glitch" data-text="DOMAIN INTELLIGENCE">DOMAIN INTELLIGENCE</h1>
+        <p class="subtitle">Real-time DNS Analysis & Security Intelligence</p>
+    </div>
+    
+    <div class="search-container">
+        <div class="search-wrapper">
+            <div class="search-box">
+                <div class="search-icon-wrapper">
+                    <i class="fas fa-search"></i>
+                </div>
+                <input 
+                    type="text" 
+                    id="domainInput" 
+                    placeholder="Enter domain to analyze... (e.g., google.com)" 
+                    autofocus
+                    class="cyber-input"
+                >
+                <button id="scanBtn" class="cyber-scan-btn">
+                    <span class="btn-text">SCAN</span>
+                    <i class="fas fa-rocket"></i>
+                    <span class="btn-pulse"></span>
+                </button>
+            </div>
+            
+            <div class="search-hints">
+                <span class="hint-tag"><i class="fas fa-shield"></i> Secure</span>
+                <span class="hint-tag"><i class="fas fa-bolt"></i> Real-time</span>
+                <span class="hint-tag"><i class="fas fa-database"></i> DNS Analysis</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="loading-content">
+        <div class="cyber-loader">
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-text">SCANNING</div>
+        </div>
+        <div class="loading-progress">
+            <div class="progress-container">
+                <div id="progressFill" class="progress-fill"></div>
+                <div class="progress-glow"></div>
+            </div>
+            <p id="progressText" class="progress-label">Initializing cyber scan...</p>
+        </div>
+        <div class="loading-stats">
+            <div class="stat-item">
+                <span class="stat-label">DNS Queries</span>
+                <span class="stat-value" id="dnsQueries">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Security Checks</span>
+                <span class="stat-value" id="securityChecks">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Response Time</span>
+                <span class="stat-value" id="responseTime">0ms</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Results Section -->
+<div id="results" class="results-section" style="display: none;">
+    <!-- Security Score -->
+    <div class="score-section cyber-card">
+        <div class="score-header">
+            <h2><i class="fas fa-shield-halved"></i> SECURITY POSTURE</h2>
+            <span class="score-timestamp" id="scanTimestamp"></span>
+        </div>
+        <div class="score-container">
+            <div class="score-circle-wrapper">
+                <div class="score-circle" id="securityScore">
+                    <svg viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#1a2332" stroke-width="6"/>
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#00ff41" stroke-width="6" 
+                                stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292"
+                                id="scoreCircle"/>
+                    </svg>
+                    <div class="score-center">
+                        <span class="score-number" id="scoreNumber">0</span>
+                        <span class="score-label">Security Score</span>
+                    </div>
+                </div>
+            </div>
+            <div class="score-details">
+                <div class="score-metric">
+                    <span class="metric-label">Threat Level</span>
+                    <span class="metric-value" id="threatLevel">-</span>
+                </div>
+                <div class="score-metric">
+                    <span class="metric-label">Domain Age</span>
+                    <span class="metric-value" id="domainAge">-</span>
+                </div>
+                <div class="score-metric">
+                    <span class="metric-label">SSL Status</span>
+                    <span class="metric-value" id="sslStatus">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intelligence Grid -->
+    <div class="intel-grid">
+        <!-- IP Intelligence -->
+        <div class="cyber-card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>IP Intelligence</h3>
+                </div>
+                <div class="card-badge">
+                    <i class="fas fa-circle-check"></i>
+                    <span>Verified</span>
+                </div>
+            </div>
+            <div class="card-body" id="ipInfo">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-network-wired"></i> IP Address</span>
+                        <span class="info-value" id="ipAddress">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-map-pin"></i> Location</span>
+                        <span class="info-value" id="ipLocation">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-building"></i> ISP</span>
+                        <span class="info-value" id="ipIsp">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-server"></i> ASN</span>
+                        <span class="info-value" id="ipAsn">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WHOIS Information -->
+        <div class="cyber-card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-address-card"></i>
+                    <h3>WHOIS Registry</h3>
+                </div>
+                <div class="card-badge">
+                    <i class="fas fa-clock"></i>
+                    <span>ICANN</span>
+                </div>
+            </div>
+            <div class="card-body" id="whoisInfo">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-user-tie"></i> Registrar</span>
+                        <span class="info-value" id="whoisRegistrar">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-building"></i> Organization</span>
+                        <span class="info-value" id="whoisOrg">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-calendar-plus"></i> Created</span>
+                        <span class="info-value" id="whoisCreated">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fas fa-calendar-check"></i> Expires</span>
+                        <span class="info-value" id="whoisExpires">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Analysis -->
+        <div class="cyber-card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-shield-halved"></i>
+                    <h3>Security Analysis</h3>
+                </div>
+                <div class="card-badge">
+                    <i class="fas fa-lock"></i>
+                    <span>Real-time</span>
+                </div>
+            </div>
+            <div class="card-body" id="securityInfo">
+                <div class="security-grid">
+                    <div class="security-item">
+                        <div class="security-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="security-details">
+                            <span class="security-name">SPF</span>
+                            <span class="security-status" id="spfStatus">-</span>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="security-icon">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                        <div class="security-details">
+                            <span class="security-name">DMARC</span>
+                            <span class="security-status" id="dmarcStatus">-</span>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="security-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="security-details">
+                            <span class="security-name">DKIM</span>
+                            <span class="security-status" id="dkimStatus">-</span>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="security-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="security-details">
+                            <span class="security-name">DNSSEC</span>
+                            <span class="security-status" id="dnssecStatus">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DNS Records -->
+        <div class="cyber-card full-width">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-server"></i>
+                    <h3>DNS Records</h3>
+                </div>
+                <div class="card-actions">
+                    <button class="cyber-btn-sm" onclick="exportJSON()">
+                        <i class="fas fa-file-export"></i> Export
+                    </button>
+                    <button class="cyber-btn-sm" onclick="copyReport()">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="dns-table-wrapper">
+                    <table class="dns-table">
+                        <thead>
+                            <tr>
+                                <th>Record Type</th>
+                                <th>Value</th>
+                                <th>TTL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dnsTableBody">
+                            <tr>
+                                <td colspan="3" class="no-data">
+                                    <i class="fas fa-database"></i>
+                                    <span>No DNS records found</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
