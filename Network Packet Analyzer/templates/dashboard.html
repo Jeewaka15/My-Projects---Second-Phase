@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 Network Packet Analyzer - Home</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e17;
+            font-family: 'Inter', sans-serif;
+            color: #e0e6ed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== Animated Background ===== */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-animation .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.05) 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-animation .circle:nth-child(1) {
+            width: 500px;
+            height: 500px;
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .bg-animation .circle:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            bottom: -50px;
+            left: -50px;
+            animation-delay: -5s;
+            background: radial-gradient(circle, rgba(100, 149, 237, 0.05) 0%, transparent 70%);
+        }
+
+        .bg-animation .circle:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+            background: radial-gradient(circle, rgba(252, 129, 129, 0.03) 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        /* ===== Navbar ===== */
+        .navbar {
+            background: rgba(13, 27, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(42, 63, 95, 0.5);
+            padding: 12px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            color: #64ffda !important;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 30px rgba(100, 255, 218, 0.2);
+        }
+
+        .navbar-brand i {
+            color: #64ffda;
+        }
+
+        #live-time {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-weight: 300;
+            background: rgba(100, 255, 218, 0.05);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        /* ===== Hero Section ===== */
+        .hero-section {
+            padding: 60px 0 40px 0;
+            text-align: center;
+        }
+
+        .hero-section .badge {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #64ffda 0%, #48bb78 50%, #6495ed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #a0b4c8;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+
+        .hero-section .btn-dashboard {
+            background: linear-gradient(135deg, #64ffda, #48bb78);
+            color: #0a0e17;
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 8px 30px rgba(100, 255, 218, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-section .btn-dashboard:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(100, 255, 218, 0.4);
+            color: #0a0e17;
+        }
+
+        .hero-section .btn-dashboard i {
+            font-size: 1.2rem;
+        }
+
+        /* ===== Features Section ===== */
+        .features-section {
+            padding: 40px 0 60px 0;
+        }
+
+        .features-section .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .features-section .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #e0e6ed;
+        }
+
+        .features-section .section-title p {
+            color: #4a6a8a;
+            font-size: 1rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, rgba(17, 28, 46, 0.8), rgba(10, 19, 32, 0.8));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(30, 45, 68, 0.5);
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #64ffda;
+            box-shadow: 0 12px 40px rgba(100, 255, 218, 0.05);
+        }
+
+        .feature-card .icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 2rem;
+        }
+
+        .feature-card .icon.green {
+            background: rgba(72, 187, 120, 0.15);
+            color: #48bb78;
+        }
+        .feature-card .icon.blue {
+            background: rgba(100, 149, 237, 0.15);
+            color: #6495ed;
+        }
+        .feature-card .icon.yellow {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+        }
+        .feature-card .icon.red {
+            background: rgba(252, 129, 129, 0.15);
+            color: #fc8181;
+        }
+        .feature-card .icon.purple {
+            background: rgba(155, 89, 182, 0.15);
+            color: #9b59b6;
+        }
+        .feature-card .icon.cyan {
+            background: rgba(100, 255, 218, 0.15);
+            color: #64ffda;
+        }
+
+        .feature-card h5 {
+            color: #e0e6ed;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #4a6a8a;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* ===== Stats Section ===== */
+        .stats-section {
+            padding: 40px 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(145deg, rgba(17, 28, 46, 0.6), rgba(10, 19, 32, 0.6));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(30, 45, 68, 0.3);
+            border-radius: 16px;
+        }
+
+        .stat-box .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #64ffda;
+            display: block;
+        }
+
+        .stat-box .label {
+            color: #4a6a8a;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== CTA Section ===== */
+        .cta-section {
+            padding: 50px 0 60px 0;
+            text-align: center;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(22, 42, 65, 0.9));
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 20px;
+            padding: 50px 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-box h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #e0e6ed;
+            margin-bottom: 12px;
+        }
+
+        .cta-box p {
+            color: #4a6a8a;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .cta-box .btn-cta {
+            background: linear-gradient(135deg, #64ffda, #48bb78);
+            color: #0a0e17;
+            padding: 14px 45px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 8px 30px rgba(100, 255, 218, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cta-box .btn-cta:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 45px rgba(100, 255, 218, 0.3);
+            color: #0a0e17;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            border-top: 1px solid rgba(30, 45, 68, 0.3);
+            padding: 25px 0;
+            text-align: center;
+            color: #4a6a8a;
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: #64ffda;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-section p {
+                font-size: 1rem;
+            }
+
+            .hero-section .btn-dashboard {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            .features-section .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .stat-box .number {
+                font-size: 2rem;
+            }
+
+            .cta-box h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-box {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== Animated Background ===== -->
+    <div class="bg-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <!-- ===== Navbar ===== -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-satellite-dish me-2"></i>
+                Packet Analyzer
+            </a>
+            <div class="navbar-nav ms-auto">
+                <span id="live-time">
+                    <i class="far fa-clock me-1"></i>
+                    <span id="clock">00:00:00</span>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== Hero Section ===== -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="badge">
+                <i class="fas fa-shield-alt me-2"></i> Network Security Tool
+            </div>
+            <h1>Network Packet Analyzer</h1>
+            <p>
+                Monitor, analyze, and detect threats in your network traffic in real-time.
+                Advanced packet inspection with intelligent threat detection.
+            </p>
+            <a href="/dashboard" class="btn-dashboard">
+                <i class="fas fa-chart-pie"></i>
+                Go to Dashboard
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== Features Section ===== -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Key Features</h2>
+                <p>Everything you need to monitor and secure your network</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon green">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h5>Real-time Monitoring</h5>
+                        <p>Capture and analyze network packets in real-time with live packet logs and instant updates.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon blue">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h5>Protocol Analytics</h5>
+                        <p>Visualize protocol distribution with interactive charts and track TCP, UDP, HTTP, and more.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon red">
+                            <i class="fas fa-shield-virus"></i>
+                        </div>
+                        <h5>Threat Detection</h5>
+                        <p>Intelligent threat detection for DDoS attacks, port scanning, suspicious IPs, and malformed packets.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon yellow">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h5>Live Statistics</h5>
+                        <p>View real-time statistics including packet rate, active hosts, total data captured, and more.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon purple">
+                            <i class="fas fa-filter"></i>
+                        </div>
+                        <h5>Smart Filtering</h5>
+                        <p>Filter packets by protocol, source IP, destination IP, or any custom text for quick analysis.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="icon cyan">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h5>Alert System</h5>
+                        <p>Real-time threat alerts with severity levels and detailed notifications for security incidents.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Stats Section ===== -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <span class="number" id="stat-packets">0</span>
+                        <span class="label">Packets Analyzed</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <span class="number" id="stat-protocols">0</span>
+                        <span class="label">Protocols</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <span class="number" id="stat-hosts">0</span>
+                        <span class="label">Active Hosts</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <span class="number" id="stat-threats">0</span>
+                        <span class="label">Threats Detected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA Section ===== -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Ready to Analyze?</h2>
+                <p>Start monitoring your network traffic with our advanced packet analyzer.</p>
+                <a href="/dashboard" class="btn-cta">
+                    <i class="fas fa-rocket"></i>
+                    Launch Dashboard
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>
+                <i class="fas fa-code me-1"></i> Built with <i class="fas fa-heart" style="color:#fc8181;"></i> for network security
+                <br>
+                <a href="/dashboard"><i class="fas fa-chart-pie me-1"></i>Dashboard</a>
+                <span class="mx-2">•</span>
+                <span id="footer-time"></span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ===== Bootstrap JS ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ===== Home Page Script ===== -->
+    <script>
+        console.log("🏠 Network Packet Analyzer - Home Page Loaded");
+
+        // Clock Update
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toTimeString().split(' ')[0];
+            document.getElementById('clock').textContent = timeString;
+            document.getElementById('footer-time').textContent = timeString;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Fetch live stats
+        async function fetchStats() {
+            try {
+                const countResponse = await fetch('/packet_count');
+                const countData = await countResponse.json();
+                const count = countData.count || 0;
+
+                const statsResponse = await fetch('/statistics');
+                const stats = await statsResponse.json();
+
+                const packetsResponse = await fetch('/packets');
+                const packets = await packetsResponse.json();
+
+                // Update stats
+                document.getElementById('stat-packets').textContent = count;
+
+                const protocolLabels = ['TCP', 'UDP', 'HTTP', 'HTTPS', 'ICMP', 'DNS', 'OTHER'];
+                const activeProtocols = protocolLabels.filter(p => (stats[p] || 0) > 0).length;
+                document.getElementById('stat-protocols').textContent = activeProtocols;
+
+                // Count unique hosts
+                if (packets && packets.length > 0) {
+                    const hosts = new Set();
+                    packets.forEach(p => {
+                        if (p.source_ip && p.source_ip !== '-') hosts.add(p.source_ip);
+                        if (p.destination_ip && p.destination_ip !== '-') hosts.add(p.destination_ip);
+                    });
+                    document.getElementById('stat-hosts').textContent = hosts.size;
+                }
+
+                // Simple threat detection for home page
+                let threats = 0;
+                if (packets && packets.length > 0) {
+                    const ipFrequency = {};
+                    packets.forEach(p => {
+                        const src = p.source_ip || '-';
+                        const dst = p.destination_ip || '-';
+                        if (src !== '-') ipFrequency[src] = (ipFrequency[src] || 0) + 1;
+                        if (dst !== '-') ipFrequency[dst] = (ipFrequency[dst] || 0) + 1;
+                    });
+                    Object.values(ipFrequency).forEach(count => {
+                        if (count > 20) threats++;
+                    });
+                }
+                document.getElementById('stat-threats').textContent = threats;
+
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        }
+
+        // Initial fetch
+        fetchStats();
+
+        // Update stats every 5 seconds
+        setInterval(fetchStats, 5000);
+
+        console.log("✅ Home page ready");
+        console.log("🔗 Dashboard available at /dashboard");
+    </script>
+
+</body>
+
+</html>
