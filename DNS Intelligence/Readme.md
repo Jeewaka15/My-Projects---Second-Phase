@@ -7,19 +7,19 @@ A Python and Flask-based DNS Intelligence Dashboard developed as part of my **Cy
 DNS Intelligence Dashboard is a reconnaissance and information gathering tool that allows users to investigate a domain's DNS records, WHOIS information, IP ownership details, and email security configurations. It demonstrates practical networking and cybersecurity concepts through a clean Flask-based application.
 
 
-![First Image Description](https://github.com/Jeewaka15/My-Projects-Second-Phase/blob/c671f63fceca378a0d395e0ccc1bbe16a7e2db83/DNS%20Intelligence/DNS%20Intelligence%201.png)
+![First Image Description](https://github.com/Jeewaka15/My-Projects---Second-Phase/blob/d6383d287f135e39209e876e93bf31b852f5ab4b/DNS%20Intelligence/DNS%20Intelligence%201.png)
 
 <br><br>
 
-![Second Image Description](https://github.com/Jeewaka15/My-Projects-Second-Phase/blob/c671f63fceca378a0d395e0ccc1bbe16a7e2db83/DNS%20Intelligence/DNS%20Intelligence%202.png)
+![Second Image Description](https://github.com/Jeewaka15/My-Projects---Second-Phase/blob/d6383d287f135e39209e876e93bf31b852f5ab4b/DNS%20Intelligence/DNS%20Intelligence%202.png)
 
 <br><br>
 
-![Third Image Description](https://github.com/Jeewaka15/My-Projects-Second-Phase/blob/c671f63fceca378a0d395e0ccc1bbe16a7e2db83/DNS%20Intelligence/DNS%20Intelligence%203.png)
+![Third Image Description](https://github.com/Jeewaka15/My-Projects---Second-Phase/blob/d6383d287f135e39209e876e93bf31b852f5ab4b/DNS%20Intelligence/DNS%20Intelligence%203.png)
 
 <br><br>
 
-![Fourth Image Description](https://github.com/Jeewaka15/My-Projects-Second-Phase/blob/c671f63fceca378a0d395e0ccc1bbe16a7e2db83/DNS%20Intelligence/DNS%20Intelligence%204.png)
+![Fourth Image Description](https://github.com/Jeewaka15/My-Projects---Second-Phase/blob/d6383d287f135e39209e876e93bf31b852f5ab4b/DNS%20Intelligence/DNS%20Intelligence%204.png)
 
 
 
