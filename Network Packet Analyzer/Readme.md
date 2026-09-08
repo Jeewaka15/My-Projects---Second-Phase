@@ -16,19 +16,19 @@ A modern web-based **Network Packet Analyzer** built with **Python, Flask, and S
 
 ---
 
-![First Image Description](https://github.com/Jeewaka15/My-Projects-Second-Phase/blob/6e4f0fb6fe6b280c8222f434beb605a57a3ff1c3/Network%20Packet%20Analyzer/Network%20Packet%20Analyzer/NPA%201.png)
+![First Image Description](https://github.com/Jeewaka15/My-Projects---Second-Phase/blob/b9bc325ebe8cb215b8672da2167504aeabb70977/Network%20Packet%20Analyzer/NPA%201.png)
 
 <br><br>
 
-![Second Image Description](https://github.com/Jeewaka15/My-Projects-Second-Phase/blob/6e4f0fb6fe6b280c8222f434beb605a57a3ff1c3/Network%20Packet%20Analyzer/Network%20Packet%20Analyzer/NPA%202.png)
+![Second Image Description](https://github.com/Jeewaka15/My-Projects---Second-Phase/blob/b9bc325ebe8cb215b8672da2167504aeabb70977/Network%20Packet%20Analyzer/NPA%202.png)
 
 <br><br>
 
-![Third Image Description](https://github.com/Jeewaka15/My-Projects-Second-Phase/blob/6e4f0fb6fe6b280c8222f434beb605a57a3ff1c3/Network%20Packet%20Analyzer/Network%20Packet%20Analyzer/NPA%203.png)
+![Third Image Description](https://github.com/Jeewaka15/My-Projects---Second-Phase/blob/b9bc325ebe8cb215b8672da2167504aeabb70977/Network%20Packet%20Analyzer/NPA%203.png)
 
 <br><br>
 
-![Fourth Image Description](https://github.com/Jeewaka15/My-Projects-Second-Phase/blob/6e4f0fb6fe6b280c8222f434beb605a57a3ff1c3/Network%20Packet%20Analyzer/Network%20Packet%20Analyzer/NPA%204.png)
+![Fourth Image Description](https://github.com/Jeewaka15/My-Projects---Second-Phase/blob/b9bc325ebe8cb215b8672da2167504aeabb70977/Network%20Packet%20Analyzer/NPA%204.png)
 
 
 ## 🛠 Tech Stack
